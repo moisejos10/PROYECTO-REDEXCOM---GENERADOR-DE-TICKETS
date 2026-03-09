@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- TABLAS DE PERSONAL Y ROLES ---
+
+model Rol {
+  id         Int       @id @default(autoincrement())
+  nombre_rol String    @unique
+  usuarios   Usuario[] // Relación: Un rol agrupa a muchos usuarios
+}
+
+model Usuario {
+  id         Int       @id @default(autoincrement())
+  nombre     String
+  email      String    @unique
+  password   String
+  en_guardia Boolean   @default(false)
+  
+  rol_id     Int
+  rol        Rol       @relation(fields: [rol_id], references: [id])
+
+  tickets_asignados Ticket[]
+  historial_cambios HistorialTicket[]
+}
+
+// --- TABLAS DE CLIENTES (Normalizadas para 4NF) ---
+
+model Cliente {
+  id              Int                @id @default(autoincrement())
+  nombre_completo String
+  
+  telefonos       TelefonoCliente[]
+  direcciones     DireccionCliente[]
+  tickets         Ticket[]
+}
+
+model TelefonoCliente {
+  id         Int     @id @default(autoincrement())
+  numero     String
+  
+  cliente_id Int
+  cliente    Cliente @relation(fields: [cliente_id], references: [id])
+}
+
+model DireccionCliente {
+  id          Int     @id @default(autoincrement())
+  direccion   String
+  coordenadas String? // Opcional, por si luego le pones GPS para los técnicos
+  
+  cliente_id  Int
+  cliente     Cliente @relation(fields: [cliente_id], references: [id])
+}
+
+// --- TABLAS DEL NÚCLEO DEL SISTEMA (TICKETS) ---
+
+model Ticket {
+  id                  Int      @id @default(autoincrement())
+  descripcion_falla   String
+  fecha_creacion      DateTime @default(now()) // Guarda la fecha y hora automáticamente
+  
+  cliente_id          Int
+  cliente             Cliente  @relation(fields: [cliente_id], references: [id])
+  
+  tecnico_asignado_id Int?     // El signo de interrogación significa que puede estar vacío al inicio
+  tecnico_asignado    Usuario? @relation(fields: [tecnico_asignado_id], references: [id])
+
+  historial           HistorialTicket[]
+}
+
+model HistorialTicket {
+  id              Int      @id @default(autoincrement())
+  estado          String   // Ej: Pendiente, En Progreso, Resuelto
+  comentario      String?  // Opcional, la bitácora del técnico
+  fecha_registro  DateTime @default(now())
+
+  ticket_id       Int
+  ticket          Ticket   @relation(fields: [ticket_id], references: [id])
+
+  usuario_id      Int      // El ID del usuario (admin o técnico) que hizo el comentario
+  usuario         Usuario  @relation(fields: [usuario_id], references: [id])
+}

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Definimos las variables de color de REDEXCOM */
+:root {
+  --color-redexcom-primary: #2563eb;   /* El azul de 'REDEX' y el globo */
+  --color-redexcom-secondary: #38bdf8; /* El celeste de 'COM' */
+}
