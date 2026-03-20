@@ -5,3 +5,26 @@
   --color-redexcom-primary: #2563eb;   /* El azul de 'REDEX' y el globo */
   --color-redexcom-secondary: #38bdf8; /* El celeste de 'COM' */
 }
+
+
+/* 1. Ancho de la barra (hace que sea más delgada) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* 2. El "riel" o fondo por donde se desliza la barra */
+::-webkit-scrollbar-track {
+  background: #0b1325;
+}
+
+/* 3. La barra "agarradera" en sí */
+::-webkit-scrollbar-thumb {
+  background: #2a344a;
+  border-radius: 10px;
+}
+
+/* 4. La agarradera cuando le pasas el mouse por encima */
+::-webkit-scrollbar-thumb:hover {
+  background: #3a4763;
+}

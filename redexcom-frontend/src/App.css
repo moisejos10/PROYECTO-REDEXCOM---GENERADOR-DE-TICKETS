@@ -40,3 +40,26 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* 1. Ancho de la barra (hace que sea más delgada) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; /* Para cuando haya scroll horizontal */
+}
+
+/* 2. El "riel" o fondo por donde se desliza la barra */
+::-webkit-scrollbar-track {
+  background: #0b1325; /* El mismo fondo oscuro de tu App */
+}
+
+/* 3. La barra "agarradera" en sí */
+::-webkit-scrollbar-thumb {
+  background: #2a344a; /* Un gris-azulado muy sutil */
+  border-radius: 10px; /* Bordes redondeados elegantes */
+}
+
+/* 4. La agarradera cuando le pasas el mouse por encima */
+::-webkit-scrollbar-thumb:hover {
+  background: #3a4763; /* Se ilumina un poco para que sepas que puedes agarrarla */
+}
