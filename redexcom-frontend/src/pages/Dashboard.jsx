@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import redexcomLogo from '../assets/redexcom-logo.png';
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
   // 1. Estado de los tickets (simulando lo que luego vendrá de tu base de datos con Node.js)
-  const [tickets, setTickets] = useState([
+  const [tickets] = useState([
     { id: 1042, cliente: 'Farmacia Central (Sede 2)', problema: 'Pérdida de paquetes en enlace dedicado', estado: 'Pendiente' },
     { id: 1041, cliente: 'Inversiones Los Andes', problema: 'Router sin respuesta a ping', estado: 'En Progreso' },
   ]);
@@ -45,15 +45,17 @@ export default function Dashboard() {
         </div>
         
         <nav className="flex-1 space-y-2 p-4">
-          <a href="#" className="block rounded-lg bg-[var(--color-redexcom-primary)] px-4 py-3 font-medium text-white shadow-md shadow-blue-900/20">
+          <Link to="/dashboard" className="block rounded-lg bg-[var(--color-redexcom-primary)] px-4 py-3 font-medium text-white shadow-md shadow-blue-900/20">
             Tickets Activos
-          </a>
-          <a href="#" className="block rounded-lg px-4 py-3 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white">
+          </Link>
+          {/* Aquí conectamos el historial usando la nueva ruta */}
+          <Link to="/historial" className="block rounded-lg px-4 py-3 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white">
             Historial de Casos
-          </a>
-          <a href="#" className="block rounded-lg px-4 py-3 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white">
-            Nodos / Redes
-          </a>
+          </Link>
+          <Link to="/usuarios" className="block rounded-lg px-4 py-3 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white">
+            Gestión de Usuarios
+          </Link>
+          
         </nav>
         
         <div className="border-t border-gray-800 p-4">
