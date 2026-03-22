@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import redexcomLogo from '../assets/redexcom-logo.png';
+
 
 export default function NuevoTicket() {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export default function NuevoTicket() {
             <h2 className="text-2xl font-bold text-white">Crear Nuevo Ticket</h2>
             <p className="mt-1 text-sm text-gray-400">Apertura de caso de soporte técnico</p>
           </div>
-          <img src={redexcomLogo} alt="REDEXCOM" className="h-10 w-auto opacity-80" />
+        
         </div>
 
         {/* Agregué el onSubmit aquí por buenas prácticas de React */}
